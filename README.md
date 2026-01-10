@@ -43,14 +43,16 @@ This is version 0.12.0, which furnishes the following routines:
 
 ### Using vcpkg (Recommended)
 
-This is the easiest way to build the project as it handles dependencies like OpenMP automatically.
+This is the easiest way to build the project. It automatically handles dependencies like OpenMP.
 
-1. Install [vcpkg](https://vcpkg.io/).
+1. Install [vcpkg](https://vcpkg.io/) and set the `VCPKG_ROOT` environment variable.
 2. Run the following commands from the project root:
    ```bash
-   # Set VCPKG_ROOT if not already set
-   cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake
-   cmake --build build
+   # Configure using the vcpkg preset
+   cmake --preset vcpkg
+
+   # Build the project
+   cmake --build --preset vcpkg
    ```
 3. To install:
    ```bash
