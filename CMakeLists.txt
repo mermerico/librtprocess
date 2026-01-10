@@ -27,7 +27,7 @@ include(DefineCMakeDefaults)
 # and -DCMAKE_BUILD_TYPE=AddressSanitizer
 include(DefineCompilerFlags)
 
-project(rtprocess VERSION 0.11.0 LANGUAGES CXX)
+project(rtprocess VERSION 0.12.0 LANGUAGES CXX)
 
 # SOVERSION scheme: MAJOR.MINOR.PATCH
 #   If there was an incompatible interface change:

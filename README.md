@@ -41,6 +41,24 @@ This is version 0.12.0, which furnishes the following routines:
 
 ## Build instructions:
 
+### Using vcpkg (Recommended)
+
+This is the easiest way to build the project as it handles dependencies like OpenMP automatically.
+
+1. Install [vcpkg](https://vcpkg.io/).
+2. Run the following commands from the project root:
+   ```bash
+   # Set VCPKG_ROOT if not already set
+   cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake
+   cmake --build build
+   ```
+3. To install:
+   ```bash
+   cmake --install build
+   ```
+
+### Standard CMake build
+
 1. Make a subdirectory named `build`, and `cd` to that directory.
 2. Run `cmake -DCMAKE_BUILD_TYPE="Release" ..`
 3. Run `make`
@@ -53,13 +71,10 @@ Build instructions for Windows msys2 environment:
 3. Run `make`
 4. Run `make install`.
 
-Build instructions for macOS:
+### Legacy macOS build instructions
 
-Prerequisites: XCode/XCode command line tools.  An optional SDK (this example uses macOS 10.9).  An implementation of OpenMP, for example `libiomp.5`.
-1. Make a subdirectory named `build`, and `cd` to that directory.
-2. On macOS 10.12 _Sierra_, run `sudo cmake -DCMAKE_BUILD_TYPE="release"  -DPROC_TARGET_NUMBER="1" -DCMAKE_C_COMPILER="clang-mp-3.9" -DCMAKE_CXX_COMPILER="clang++-mp-3.9" -DCMAKE_CXX_FLAGS=-I/opt/local/include -DCMAKE_OSX_SYSROOT="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk" -DCMAKE_OSX_DEPLOYMENT_TARGET="10.9" -DOpenMP_C_FLAGS=-fopenmp="libiomp5" -DOpenMP_CXX_FLAGS=-fopenmp="libiomp5" -DOpenMP_C_LIB_NAMES="libiomp5" -DOpenMP_CXX_LIB_NAMES="libiomp5" -DOpenMP_libiomp5_LIBRARY="/opt/local" -DCMAKE_INSTALL_PREFIX=/opt/local ..`
-<br><br>On macOS 10.14 _Mojave_, run `cmake -DCMAKE_BUILD_TYPE="release" -DPROC_TARGET_NUMBER="1" -DCMAKE_CXX_COMPILER="clang++" -DCMAKE_CXX_FLAGS=-I/opt/local/include -DCMAKE_OSX_SYSROOT="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk" -DCMAKE_OSX_DEPLOYMENT_TARGET="10.9"  -DOpenMP_CXX_FLAGS=-fopenmp=lomp -DOpenMP_CXX_LIB_NAMES="libomp" -DOpenMP_CXX_FLAGS="-Xpreprocessor -fopenmp /opt/local/lib/libomp.dylib -I/opt/local/include" -DOpenMP_CXX_LIB_NAMES="libomp" -DOpenMP_libomp_LIBRARY=/opt/local/lib/libomp.dylib -DCMAKE_INSTALL_PREFIX=/opt/local  -DCMAKE_SHARED_LINKER_FLAGS=-L/opt/local/lib ..`
-3. Run `sudo make -j$(sysctl -n hw.ncpu) install`
+Prerequisites: XCode/XCode command line tools. An implementation of OpenMP (e.g., from Homebrew/MacPorts).
+Note: Using the `vcpkg` method above is highly recommended as it handles OpenMP flags correctly.
 
 Optional switches to be included in the `cmake` command:
 
