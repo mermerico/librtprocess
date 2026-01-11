@@ -34,9 +34,7 @@ endif()
 
 target_compile_options(rtprocess
                        PRIVATE
-                           ${OpenMP_CXX_FLAGS}
                            ${DEFAULT_CXX_COMPILE_FLAGS}
-                           ${OpenMP_CXX_FLAGS}
                            ${PROC_FLAGS})
 set_property(TARGET
                  rtprocess
@@ -56,7 +54,7 @@ set_property(TARGET
                  SOVERSION ${LIBRARY_SOVERSION})
 
 if (OpenMP_FOUND)
-    target_link_libraries(rtprocess PRIVATE ${OpenMP_CXX_LIBRARIES})
+    target_link_libraries(rtprocess PRIVATE OpenMP::OpenMP_CXX)
 endif()
 
 if (VERBOSE)

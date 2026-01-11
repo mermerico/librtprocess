@@ -1,6 +1,7 @@
 # Required cmake version
 cmake_minimum_required(VERSION 3.5.0)
 cmake_policy(SET CMP0048 NEW)
+cmake_policy(SET CMP0074 NEW)
 
 if (NOT DEFINED CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "RelWithDebInfo")
@@ -8,6 +9,15 @@ endif()
 # Specify search path for CMake modules to be loaded by include()
 # and find_package()
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules")
+
+if(APPLE)
+    # On macOS, OpenMP is often provided by Homebrew's libomp.
+    # We provide hints to find_package(OpenMP) to locate it.
+    if(NOT OpenMP_ROOT AND EXISTS "/opt/homebrew/opt/libomp")
+        set(OpenMP_ROOT "/opt/homebrew/opt/libomp")
+    endif()
+    message(STATUS "Using OpenMP_ROOT: ${OpenMP_ROOT}")
+endif()
 
 ### Add defaults for cmake
 # These defaults need to be included before the project() call.
@@ -17,7 +27,7 @@ include(DefineCMakeDefaults)
 # and -DCMAKE_BUILD_TYPE=AddressSanitizer
 include(DefineCompilerFlags)
 
-project(rtprocess VERSION 0.11.0 LANGUAGES CXX)
+project(rtprocess VERSION 0.12.0 LANGUAGES CXX)
 
 # SOVERSION scheme: MAJOR.MINOR.PATCH
 #   If there was an incompatible interface change:
