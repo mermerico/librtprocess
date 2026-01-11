@@ -55,6 +55,9 @@ set_property(TARGET
 
 if (OpenMP_FOUND)
     target_link_libraries(rtprocess PRIVATE OpenMP::OpenMP_CXX)
+    if (MSVC)
+        target_compile_options(rtprocess PRIVATE /openmp:experimental)
+    endif()
 endif()
 
 if (VERBOSE)
